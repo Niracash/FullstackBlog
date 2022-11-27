@@ -8,13 +8,13 @@ namespace Blog.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PostController : Controller
+    public class BlogpostController : Controller
     {
         private readonly BlogDbContext db;
         // inject dbcontext
-        public PostController(BlogDbContext db)
+        public BlogpostController(BlogDbContext db)
         {
-           this.db = db;
+            this.db = db;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllBlogPosts()
@@ -28,7 +28,7 @@ namespace Blog.API.Controllers
         public async Task<IActionResult> GetPostById(Guid id)
         {
             var post = await db.BlogPosts.FirstOrDefaultAsync(x => x.Id == id);
-            if(post != null)
+            if (post != null)
             {
                 return Ok(post);
             }
@@ -98,7 +98,7 @@ namespace Blog.API.Controllers
         public async Task<IActionResult> DeletePost(Guid id)
         {
             var findPost = await db.BlogPosts.FindAsync(id);
-            if(findPost != null)
+            if (findPost != null)
             {
                 db.Remove(findPost);
                 await db.SaveChangesAsync();
